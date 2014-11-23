@@ -1,0 +1,10 @@
+Data Source: http://ufldl.stanford.edu/housenumbers/
+(2nd format)
+
+Reference: http://deeplearning.net/tutorial/logreg.html
+	   http://deeplearning.net/tutorial/mlp.html
+	   http://deeplearning.net/tutorial/lenet.html
+
+Use prep_data.py to convert the origin .mat files into input data type in logistic_sgd.py
+
+Converted data: https://www.dropbox.com/s/erc65whck3n06lt/svhn.pkl.gz?dl=0
