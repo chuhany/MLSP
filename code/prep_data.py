@@ -2,9 +2,15 @@ import scipy.io as sio
 import numpy
 import cPickle
 import gzip
+import os
 
-train = sio.loadmat('train_32x32.mat')
-test = sio.loadmat('test_32x32.mat')
+train_path = os.path.join(os.path.split(__file__)[0], "..", "data", "train_32x32.mat")
+test_path = os.path.join(os.path.split(__file__)[0], "..", "data", "test_32x32.mat")
+train = sio.loadmat(train_path)
+test = sio.loadmat(test_path)
+
+for i in range(0, 10):
+    print test['y'][i]
 
 valid_size = 10000
 train_size = len(train['y']) - 10000
@@ -23,7 +29,7 @@ for i in range(0, train_size):
                 train_set[0][i][32 * x + y] += train['X'][x][y][j][i]
             train_set[0][i][32 * x + y] /= 3
             train_set[0][i][32 * x + y] /= 256
-    train_set[1][i] = train['y'][i]
+    train_set[1][i] = train['y'][i] % 10
 
 print "train_set finished"
 
@@ -34,7 +40,7 @@ for i in range(0, valid_size):
                 valid_set[0][i][32 * x + y] += train['X'][x][y][j][train_size + i]
             valid_set[0][i][32 * x + y] /= 3
             valid_set[0][i][32 * x + y] /= 256
-    valid_set[1][i] = train['y'][train_size + i]
+    valid_set[1][i] = train['y'][train_size + i] % 10
 
 print "valid_set finished"
 
@@ -45,7 +51,7 @@ for i in range(0, test_size):
                 test_set[0][i][32 * x + y] += test['X'][x][y][j][i]
             test_set[0][i][32 * x + y] /= 3
             test_set[0][i][32 * x + y] /= 256
-    test_set[1][i] = test['y'][i]
+    test_set[1][i] = test['y'][i] % 10
 
 print "test_set finished"
 

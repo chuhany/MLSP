@@ -112,7 +112,7 @@ class LeNetConvPoolLayer(object):
 
 
 def evaluate_lenet5(learning_rate=0.1, n_epochs=200,
-                    dataset='mnist.pkl.gz',
+                    dataset='svhn.pkl.gz',
                     nkerns=[20, 50], batch_size=500):
     """ Demonstrates lenet on MNIST dataset
 
@@ -162,7 +162,7 @@ def evaluate_lenet5(learning_rate=0.1, n_epochs=200,
     # Reshape matrix of rasterized images of shape (batch_size, 28 * 28)
     # to a 4D tensor, compatible with our LeNetConvPoolLayer
     # (28, 28) is the size of MNIST images.
-    layer0_input = x.reshape((batch_size, 1, 28, 28))
+    layer0_input = x.reshape((batch_size, 1, 32, 32))
 
     # Construct the first convolutional pooling layer:
     # filtering reduces the image size to (28-5+1 , 28-5+1) = (24, 24)
@@ -171,8 +171,8 @@ def evaluate_lenet5(learning_rate=0.1, n_epochs=200,
     layer0 = LeNetConvPoolLayer(
         rng,
         input=layer0_input,
-        image_shape=(batch_size, 1, 28, 28),
-        filter_shape=(nkerns[0], 1, 5, 5),
+        image_shape=(batch_size, 1, 32, 32),
+        filter_shape=(nkerns[0], 1, 9, 9),
         poolsize=(2, 2)
     )
 

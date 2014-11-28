@@ -199,13 +199,24 @@ def load_data(dataset):
         urllib.urlretrieve(origin, dataset)
 
     print '... loading data'
+    print 'dataset is %s' % dataset
 
     # Load the dataset
     f = gzip.open(dataset, 'rb')
-    train_set, valid_set, test_set = cPickle.load(f)
-    print len(train_set[0])
-    print len(valid_set[0])
-    # print len(train_set[0][0]) 
+    print f
+
+    # train_set, valid_set, test_set = cPickle.load(f)
+    
+    ########### Modified by chuhany ##############
+    
+    loaded_objects = []
+    for i in range(3):
+        loaded_objects.append(cPickle.load(f))
+    train_set = loaded_objects[0]
+    valid_set = loaded_objects[1]
+    test_set = loaded_objects[2]
+
+    ########### Modified by chuhany ##############
 
     f.close()
     #train_set, valid_set, test_set format: tuple(input, target)
@@ -371,7 +382,6 @@ def sgd_optimization_mnist(learning_rate=0.13, n_epochs=1000,
     while (epoch < n_epochs) and (not done_looping):
         epoch = epoch + 1
         for minibatch_index in xrange(n_train_batches):
-
             minibatch_avg_cost = train_model(minibatch_index)
             # iteration number
             iter = (epoch - 1) * n_train_batches + minibatch_index
