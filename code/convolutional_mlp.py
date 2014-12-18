@@ -101,19 +101,22 @@ class LeNetConvPoolLayer(object):
             ignore_border=True
         )
 
+        # activation = T.tanh
+        activation = lambda x: x * (x > 0)
+        
         # add the bias term. Since the bias is a vector (1D array), we first
         # reshape it to a tensor of shape (1, n_filters, 1, 1). Each bias will
         # thus be broadcasted across mini-batches and feature map
         # width & height
-        self.output = T.tanh(pooled_out + self.b.dimshuffle('x', 0, 'x', 'x'))
+        self.output = activation(pooled_out + self.b.dimshuffle('x', 0, 'x', 'x'))
 
         # store parameters of this layer
         self.params = [self.W, self.b]
 
 
 def evaluate_lenet5(learning_rate=0.1, n_epochs=200,
-                    dataset='svhn.pkl.gz',
-                    nkerns=[20, 50], batch_size=500):
+                    dataset='dataSet.pkl.gz',
+                    nkerns=[15, 25], batch_size=500):
     """ Demonstrates lenet on MNIST dataset
 
     :type learning_rate: float

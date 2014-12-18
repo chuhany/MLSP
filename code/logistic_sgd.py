@@ -187,10 +187,10 @@ def load_data(dataset):
             "data",
             dataset
         )
-        if os.path.isfile(new_path) or data_file == 'svhn.pkl.gz':
+        if os.path.isfile(new_path) or data_file == 'dataSet.pkl.gz':
             dataset = new_path
 
-    if (not os.path.isfile(dataset)) and data_file == 'svhn.pkl.gz':
+    if (not os.path.isfile(dataset)) and data_file == 'dataSet.pkl.gz':
         import urllib
         origin = (
             'http://www.iro.umontreal.ca/~lisa/deep/data/mnist/mnist.pkl.gz'
